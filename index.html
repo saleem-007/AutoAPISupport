@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+  Auto API · Support page
+  ───────────────────────────────────────────────────────────────────────────────
+  Self-contained — no JS dependencies, no external assets. Host this single file
+  anywhere static (GitHub Pages, Netlify, Vercel, Cloudflare Pages, S3, a folder
+  on your own server). Then paste that URL into the Chrome Web Store listing's
+  "Support URL" field.
+
+  CUSTOMIZE BEFORE PUBLISHING ─────────────────────────────────────────────────
+    1. Search for "support@autoapi.dev" and replace with your real email.
+    2. Search for "github.com/auto-api/auto-api" and replace with your real
+       repo (or remove those cards if you don't have a public repo).
+    3. Update the Chrome Web Store reviews link in the last contact card
+       with your extension's actual store URL once published.
+    4. (Optional) Update the version chip "v1.7.0" in the hero + footer when
+       you ship new releases.
+
+  That's it. Everything else — design tokens, FAQ content, troubleshooting
+  table, permissions, privacy — is already accurate for v1.7.0.
+================================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support — Auto API</title>
+  <meta name="description" content="Help, FAQ, troubleshooting, privacy and contact for Auto API — the Chrome extension that captures API calls and generates runnable test code in 8 frameworks.">
+  <meta property="og:title" content="Auto API — Support">
+  <meta property="og:description" content="Help, FAQ, troubleshooting, and privacy for Auto API.">
+  <meta name="theme-color" content="#4f46e5">
+  <!-- Inline SVG favicon: same {→} glyph as the extension icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%234f46e5'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='128' height='128' rx='26' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M44 38 Q32 38 32 50 L32 60 Q32 64 26 64 Q32 64 32 68 L32 78 Q32 90 44 90'/%3E%3Cpath d='M84 38 Q96 38 96 50 L96 60 Q96 64 102 64 Q96 64 96 68 L96 78 Q96 90 84 90'/%3E%3C/g%3E%3Cpath d='M56 60.5 L68 60.5 L68 56 L78 64 L68 72 L68 67.5 L56 67.5 Z' fill='%23fff'/%3E%3Ccircle cx='98' cy='32' r='6' fill='%2310b981'/%3E%3C/svg%3E">
+  <style>
+    /* ============================================================
+       Design tokens — lifted from the extension's own styles.css so
+       this page looks unmistakably part of the same product.
+       ============================================================ */
+    :root {
+      --ink-1: #111116;
+      --ink-2: #585864;
+      --ink-3: #9e9eaf;
+      --surface-0: #fcfcfd;
+      --surface-1: #ffffff;
+      --surface-2: #f5f5f7;
+      --surface-3: #e4e4ea;
+      --accent: #4f46e5;
+      --accent-glow: #8b5cf6;
+      --accent-soft: #e0e7ff;
+      --method-get: #10b981;
+      --method-post: #3b82f6;
+      --method-put: #f59e0b;
+      --method-patch: #a855f7;
+      --method-delete: #ef4444;
+      --gradient-brand: linear-gradient(135deg, var(--accent) 0%, var(--accent-glow) 100%);
+      --shadow-soft: 0 1px 3px rgba(17, 17, 22, 0.06), 0 1px 2px rgba(17, 17, 22, 0.04);
+      --shadow-lift: 0 12px 32px -8px rgba(79, 70, 229, 0.18), 0 4px 12px rgba(17, 17, 22, 0.06);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    }
+
+    /* ----- Reset / base ----------------------------------------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink-1);
+      background: var(--surface-0);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent-glow); text-decoration: underline; text-underline-offset: 3px; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+    code, kbd, .mono { font-family: var(--font-mono); font-size: 0.92em; }
+    code {
+      background: var(--surface-2);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+      border: 1px solid var(--surface-3);
+      color: var(--ink-1);
+    }
+    kbd {
+      background: var(--surface-1);
+      border: 1px solid var(--surface-3);
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.85em;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+
+    /* ----- Sticky top nav --------------------------------------- */
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(252, 252, 253, 0.85);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--surface-3);
+    }
+    .top-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--ink-1);
+      font-size: 15px;
+    }
+    .brand:hover { text-decoration: none; color: var(--ink-1); }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--gradient-brand);
+      box-shadow: var(--shadow-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--method-get);
+      box-shadow: 0 0 0 2px var(--surface-0);
+    }
+    .brand-glyph {
+      width: 18px;
+      height: 18px;
+      stroke: white;
+      stroke-width: 1.8;
+      fill: none;
+    }
+    .top nav {
+      margin-left: auto;
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .top nav a {
+      color: var(--ink-2);
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s, color 0.15s;
+    }
+    .top nav a:hover {
+      color: var(--ink-1);
+      background: var(--surface-2);
+      text-decoration: none;
+    }
+
+    /* ----- Container -------------------------------------------- */
+    main { max-width: 980px; margin: 0 auto; padding: 0 24px 96px; }
+
+    /* ----- Hero ------------------------------------------------- */
+    .hero {
+      padding: 88px 0 64px;
+      text-align: left;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 24px -120px auto -120px;
+      height: 360px;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(224, 231, 255, 0.7), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(221, 214, 254, 0.5), transparent 55%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1.5px;
+      background: var(--accent);
+      display: inline-block;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 20px;
+      font-weight: 700;
+    }
+    .hero p.lead {
+      font-size: 19px;
+      max-width: 620px;
+      color: var(--ink-2);
+      margin: 0 0 28px;
+      line-height: 1.55;
+    }
+    .hero-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--surface-1);
+      border: 1px solid var(--surface-3);
+      font-size: 12.5px;
+      font-family: var(--font-mono);
+      color: var(--ink-2);
+    }
+    .chip.live::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--method-get);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    /* ----- Section structure ------------------------------------
+       Each section uses a "request-style" eyebrow — fake HTTP
+       method + endpoint label. This is the signature device that
+       makes the docs feel native to the tool's world. */
+    section.block {
+      padding: 64px 0;
+      border-top: 1px solid var(--surface-3);
+    }
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+    .method-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      line-height: 1.4;
+    }
+    .method-get    { background: rgba(16,185,129,0.10);  color: var(--method-get);    border: 1px solid rgba(16,185,129,0.3); }
+    .method-post   { background: rgba(59,130,246,0.10);  color: var(--method-post);   border: 1px solid rgba(59,130,246,0.3); }
+    .method-put    { background: rgba(245,158,11,0.10);  color: var(--method-put);    border: 1px solid rgba(245,158,11,0.3); }
+    .method-patch  { background: rgba(168,85,247,0.10);  color: var(--method-patch);  border: 1px solid rgba(168,85,247,0.3); }
+    .method-delete { background: rgba(239,68,68,0.10);   color: var(--method-delete); border: 1px solid rgba(239,68,68,0.3); }
+    .endpoint {
+      color: var(--ink-2);
+      letter-spacing: 0;
+    }
+    section.block h2 {
+      font-size: clamp(26px, 3.5vw, 34px);
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      margin: 0 0 16px;
+      font-weight: 700;
+    }
+    section.block > p.section-lead {
+      color: var(--ink-2);
+      font-size: 16.5px;
+      max-width: 640px;
+      margin: 0 0 32px;
+    }
+
+    /* ----- Quick start steps as numbered cards ------------------ */
+    .steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 720px) {
+      .steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    .step {
+      background: var(--surface-1);
+      border: 1px solid var(--surface-3);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position: relative;
+    }
+    .step:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lift);
+      border-color: rgba(79, 70, 229, 0.25);
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--gradient-brand);
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      font-family: var(--font-mono);
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-soft);
+    }
+    .step h3 {
+      font-size: 16.5px;
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+    }
+    .step p {
+      margin: 0;
+      color: var(--ink-2);
+      font-size: 14.5px;
+      line-height: 1.55;
+    }
+
+    /* ----- FAQ accordions (pure HTML <details>) ----------------- */
+    .faq {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .faq details {
+      background: var(--surface-1);
+      border: 1px solid var(--surface-3);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .faq details[open] {
+      border-color: rgba(79, 70, 229, 0.3);
+      box-shadow: var(--shadow-soft);
+    }
+    .faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      font-weight: 600;
+      font-size: 15.5px;
+      color: var(--ink-1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      user-select: none;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-right: 1.6px solid var(--ink-3);
+      border-bottom: 1.6px solid var(--ink-3);
+      transform: rotate(45deg);
+      transition: transform 0.2s, border-color 0.2s;
+      margin-right: 4px;
+    }
+    .faq details[open] summary::after {
+      transform: rotate(-135deg);
+      border-color: var(--accent);
+    }
+    .faq summary:hover { background: var(--surface-2); }
+    .faq .answer {
+      padding: 0 22px 22px;
+      color: var(--ink-2);
+      line-height: 1.65;
+    }
+    .faq .answer p { margin: 0 0 12px; }
+    .faq .answer p:last-child { margin-bottom: 0; }
+    .faq .answer ul {
+      padding-left: 22px;
+      margin: 8px 0;
+    }
+    .faq .answer ul li { margin-bottom: 6px; }
+    .faq .answer .callout {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: var(--accent-soft);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+    }
+
+    /* ----- Troubleshooting table -------------------------------- */
+    .trouble-wrap {
+      border: 1px solid var(--surface-3);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--surface-1);
+      box-shadow: var(--shadow-soft);
+    }
+    .trouble-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+    }
+    .trouble-table th, .trouble-table td {
+      padding: 14px 18px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--surface-3);
+    }
+    .trouble-table tr:last-child td { border-bottom: none; }
+    .trouble-table th {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 700;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--surface-3);
+    }
+    .trouble-table td:first-child { font-weight: 600; color: var(--ink-1); }
+    .trouble-table td:nth-child(2) { color: var(--ink-2); }
+    .trouble-table td:last-child code { display: inline-block; margin: 2px 0; }
+    @media (max-width: 640px) {
+      .trouble-table thead { display: none; }
+      .trouble-table tr {
+        display: block;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--surface-3);
+      }
+      .trouble-table tr:last-child { border-bottom: none; }
+      .trouble-table td {
+        display: block;
+        padding: 4px 18px;
+        border: none;
+      }
+      .trouble-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink-3);
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .trouble-table td:first-child { padding-top: 12px; }
+      .trouble-table td:last-child { padding-bottom: 12px; }
+    }
+
+    /* ----- Permission rows -------------------------------------- */
+    .perms {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .perm {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      background: var(--surface-1);
+      border: 1px solid var(--surface-3);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+    }
+    @media (min-width: 720px) {
+      .perm { grid-template-columns: 240px 1fr; gap: 20px; align-items: start; }
+    }
+    .perm-name {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-1);
+      padding-top: 1px;
+    }
+    .perm-why { color: var(--ink-2); font-size: 14.5px; line-height: 1.6; }
+
+    /* ----- Privacy statement list ------------------------------- */
+    .privacy-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 720px;
+    }
+    .privacy-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--surface-1);
+      border: 1px solid var(--surface-3);
+      border-radius: var(--radius-md);
+    }
+    .privacy-check {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--method-get);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .privacy-check svg { width: 12px; height: 12px; stroke: white; stroke-width: 2.4; fill: none; }
+    .privacy-item p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.55; }
+    .privacy-item strong { color: var(--ink-1); font-weight: 600; }
+
+    /* ----- Contact cards ---------------------------------------- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 720px) {
+      .contact-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .contact-card {
+      display: block;
+      background: var(--surface-1);
+      border: 1px solid var(--surface-3);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      color: inherit;
+    }
+    .contact-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lift);
+      border-color: rgba(79, 70, 229, 0.3);
+      text-decoration: none;
+    }
+    .contact-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 6px;
+      font-size: 16.5px;
+      letter-spacing: -0.01em;
+    }
+    .contact-card p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+    .contact-card .arrow {
+      float: right;
+      width: 16px;
+      height: 16px;
+      stroke: var(--accent);
+      stroke-width: 1.8;
+      fill: none;
+      transition: transform 0.2s;
+    }
+    .contact-card:hover .arrow { transform: translateX(3px); }
+
+    /* ----- Footer ----------------------------------------------- */
+    footer {
+      border-top: 1px solid var(--surface-3);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--ink-3);
+      font-size: 13px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    footer a { color: var(--ink-2); }
+    footer .footer-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: var(--ink-2);
+      font-weight: 600;
+    }
+
+    /* ----- Reduced motion --------------------------------------- */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====================================================================
+     Top nav — sticky, links jump to sections within the same page.
+     Keep it short: nothing more important than getting to the answer.
+     ==================================================================== -->
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="#top" aria-label="Auto API — home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg class="brand-glyph" viewBox="0 0 24 24">
+          <path d="M9 6 Q6 6 6 9 V11 Q6 12 5 12 Q6 12 6 13 V15 Q6 18 9 18" />
+          <path d="M15 6 Q18 6 18 9 V11 Q18 12 19 12 Q18 12 18 13 V15 Q18 18 15 18" />
+          <path d="M10 12 H13 M12 10 L14 12 L12 14" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Auto API
+    </a>
+    <nav aria-label="Support sections">
+      <a href="#quick-start">Quick start</a>
+      <a href="#faq">FAQ</a>
+      <a href="#troubleshooting">Troubleshooting</a>
+      <a href="#permissions">Permissions</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ==================================================================
+       Hero — single thesis sentence, version chip, current status.
+       ================================================================== -->
+  <section class="hero">
+    <div class="hero-eyebrow">SUPPORT · v1.7.0</div>
+    <h1>Help, troubleshooting, and answers for Auto API.</h1>
+    <p class="lead">
+      Auto API is a Chrome side-panel extension that captures every API call your app makes,
+      generates runnable test code in eight frameworks, and runs the tests right here in the
+      browser. If something's not working — or you're just getting started — this is the page
+      that explains it.
+    </p>
+    <div class="hero-meta">
+      <span class="chip live">All systems operational</span>
+      <span class="chip">Latest release · v1.7.0</span>
+      <span class="chip">MV3 · Side panel</span>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       GET /quick-start — three concrete steps to first capture.
+       ================================================================== -->
+  <section class="block" id="quick-start">
+    <div class="section-eyebrow">
+      <span class="method-pill method-get">GET</span>
+      <span class="endpoint">/quick-start</span>
+    </div>
+    <h2>From install to first export in 60 seconds.</h2>
+    <p class="section-lead">
+      Four steps. No accounts, no setup, no config files. Everything happens locally in
+      your browser.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h3>Pin Auto API to your toolbar</h3>
+        <p>
+          After install, click the <strong>puzzle icon</strong> at the top-right of Chrome and
+          press the pin next to Auto API. The icon stays visible so the side panel is one click
+          away.
+        </p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h3>Open the side panel and click <span class="mono">Start</span></h3>
+        <p>
+          Click the Auto API toolbar icon to open the side panel, then click the gradient
+          <kbd>Start</kbd> button. It turns red and starts pulsing — capture is live.
+        </p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h3>Browse your app, then click <span class="mono">Stop</span></h3>
+        <p>
+          Use your app the way a tester would. Every <span class="mono">fetch</span> and
+          <span class="mono">XMLHttpRequest</span> is recorded with full headers, bodies, and
+          response. Click <kbd>Stop</kbd> when you're done — a suite is auto-saved.
+        </p>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <h3>Export the project or run the suite</h3>
+        <p>
+          Open <strong>Health Check</strong>, pick a format (pytest, RestAssured, Playwright),
+          and click <kbd>Download .zip</kbd> for a complete runnable project — or switch to the
+          <strong>Run</strong> tab to execute every request right here in the panel.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       GET /faq — collapsible answers to common questions.
+       ================================================================== -->
+  <section class="block" id="faq">
+    <div class="section-eyebrow">
+      <span class="method-pill method-get">GET</span>
+      <span class="endpoint">/faq</span>
+    </div>
+    <h2>Frequently asked questions.</h2>
+    <p class="section-lead">
+      Click any question to expand. Don't see your question?
+      <a href="#contact">Get in touch</a>.
+    </p>
+
+    <div class="faq">
+      <details>
+        <summary>How does Auto API capture network requests?</summary>
+        <div class="answer">
+          <p>
+            Two rails working together. The primary path attaches to the active tab via the
+            Chrome DevTools Protocol (the <code>chrome.debugger</code> API) and listens for
+            <code>Network.requestWillBeSent</code> + <code>Network.responseReceived</code> events.
+            That gives Auto API access to every <code>fetch</code> and
+            <code>XMLHttpRequest</code> with full headers and bodies, including responses.
+          </p>
+          <p>
+            The fallback path is a page-world script injected via <code>chrome.scripting</code>
+            that hooks <code>window.fetch</code> and the XHR prototype. This catches edge cases
+            CDP misses — for example, requests dispatched from service workers, or page contexts
+            where CDP attachment is restricted.
+          </p>
+          <p class="callout">
+            Both rails feed the same in-memory store, deduplicated by request ID. You don't see
+            duplicate rows even when both pick up the same call.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Does Auto API send my data anywhere?</summary>
+        <div class="answer">
+          <p>
+            No. Every captured request, response body, header, and saved suite lives in your
+            browser's own IndexedDB store (via Dexie). Nothing is sent to a server, no analytics,
+            no telemetry, no remote logging. The extension has no network hosts allowlisted —
+            you can verify this in <code>manifest.json</code>.
+          </p>
+          <p>
+            When you click <kbd>Clear</kbd>, the local store is wiped. When you uninstall the
+            extension, Chrome deletes the IndexedDB store with it. There's no cloud component.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Nothing is being captured — what's wrong?</summary>
+        <div class="answer">
+          <p>Three things to check, in order:</p>
+          <ul>
+            <li>
+              The <kbd>Start</kbd> button should be showing as red <kbd>Stop</kbd> with a
+              pulsing dot. If it still says Start, click it.
+            </li>
+            <li>
+              Refresh the target tab <em>after</em> clicking Start. The page-world interceptor
+              only hooks <code>fetch</code> and XHR at script-injection time; requests
+              dispatched before injection are missed.
+            </li>
+            <li>
+              If you have <strong>Chrome DevTools open on the same tab</strong>, only one
+              client can attach via CDP at a time. Close DevTools or use a different tab.
+            </li>
+          </ul>
+          <p class="callout">
+            Restricted pages (<code>chrome://*</code>, the Chrome Web Store, other extensions'
+            pages) don't allow CDP attachment by design — Auto API can't capture there.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What's the difference between Export and Run?</summary>
+        <div class="answer">
+          <p>
+            <strong>Export</strong> generates a complete runnable project bundle —
+            <code>test_*.py</code> + <code>conftest.py</code> + <code>requirements.txt</code> +
+            <code>.env.example</code> + <code>README.md</code> for pytest, or the equivalent
+            Maven / Node project layout for RestAssured / Playwright. You download the
+            <code>.zip</code>, drop it in your repo, and it runs in CI.
+          </p>
+          <p>
+            <strong>Run</strong> executes every captured request right inside the extension,
+            sequentially, through the same engine. Each row shows pass / fail against the
+            originally captured status code. It's a fast smoke test — "do my captured flows
+            still work?" — without ever leaving the panel.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>My exported test fails with 401 / 403 when I run it. Why?</summary>
+        <div class="answer">
+          <p>
+            By far the most common cause: the <code>Authorization</code> bearer token captured
+            during recording has expired. Auto API extracts auth tokens into a typed env var
+            (<code>AUTH_TOKEN</code>) precisely for this — open <code>.env</code> in the
+            exported project, drop in a fresh token, and re-run.
+          </p>
+          <p>
+            Other tokens follow the same pattern: <code>API_KEY</code>, <code>CSRF_TOKEN</code>,
+            <code>ACCESS_TOKEN</code>, <code>SESSION_ID</code>. All live in <code>.env</code>;
+            none are hard-coded in the test file.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I capture only specific requests?</summary>
+        <div class="answer">
+          <p>Two approaches:</p>
+          <ul>
+            <li>
+              <strong>Filter while capturing:</strong> use the search bar to narrow by URL,
+              method, or GraphQL op name. Use the category sidebar to scope to a class of
+              requests (Auth, Users, Orders, etc.). Toggle <kbd>Show noise</kbd> off to hide
+              static-asset requests, beacons, and similar low-value traffic.
+            </li>
+            <li>
+              <strong>Capture everything, export a subset:</strong> tick the checkboxes next
+              to the requests you want, click <kbd>Export N</kbd> in the selection toolbar,
+              and choose a format. The bundle contains only the requests you selected, in
+              capture order.
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I paste a cURL command and get test code?</summary>
+        <div class="answer">
+          <p>
+            Yes — click <kbd>cURL</kbd> in the top bar. The parser handles every flavor:
+          </p>
+          <ul>
+            <li>Chrome DevTools "Copy as cURL" (backslash continuations, <code>--compressed</code>)</li>
+            <li>Postman "Copy → cURL" (<code>--location</code>, multi-line <code>--data</code> JSON)</li>
+            <li>Hand-written one-liners with <code>-X</code>, <code>-H</code>, <code>-d</code></li>
+            <li><code>-u user:pass</code> becomes a proper <code>Authorization: Basic …</code> header</li>
+            <li>Body Content-Type is sniffed from shape if not set</li>
+          </ul>
+          <p>
+            Once parsed, the same Export menu and Run flow that work on captured requests
+            work on the pasted one.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Does Auto API work on every site?</summary>
+        <div class="answer">
+          <p>
+            Most. The exceptions are sites Chrome itself protects from extensions:
+          </p>
+          <ul>
+            <li><code>chrome://*</code> and the Chrome Web Store</li>
+            <li>Other extensions' background and options pages</li>
+            <li>Pages where another DevTools client is already attached (close DevTools to free the slot)</li>
+            <li>Some sandboxed iframes</li>
+          </ul>
+          <p>
+            Everywhere else — your staging, your prod, third-party APIs, GraphQL endpoints,
+            internal tools — works the same way.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Where is my captured data stored?</summary>
+        <div class="answer">
+          <p>
+            In your browser's IndexedDB, scoped to the extension. The schema has four tables:
+            <code>current</code> (the active capture), <code>sessions</code> (capture metadata),
+            <code>suites</code> (auto-saved test suites), and <code>settings</code> (your
+            preferences).
+          </p>
+          <p>
+            Clicking <kbd>Clear</kbd> empties the current and sessions tables. Deleting an
+            individual suite removes it from the suites table. Uninstalling the extension
+            removes the entire store.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Why does Auto API need the "debugger" permission?</summary>
+        <div class="answer">
+          <p>
+            It's the only way to listen for the network requests your page makes at a level
+            that gives you full headers and full response bodies. The same permission powers
+            Chrome DevTools itself.
+          </p>
+          <p>
+            When the extension is attached, Chrome shows a yellow infobar at the top of the
+            tab — "Auto API started debugging this browser". That's Chrome being transparent
+            about an extension having that capability. The bar disappears as soon as you click
+            Stop or close the tab.
+          </p>
+          <p>
+            The permission is only used to attach to the tab you're capturing in, and never
+            sends data anywhere. <a href="#permissions">Full permission list</a>.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I edit the generated test before exporting?</summary>
+        <div class="answer">
+          <p>
+            Auto API regenerates the bundle every time you switch format or change the active
+            suite, so direct in-extension editing isn't supported — your edits would be lost
+            on the next regeneration. Instead, download the <code>.zip</code> and edit the
+            files in your own editor. They're plain Python / Java / TypeScript with no
+            tool-specific markup.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I run a single captured request, not the whole suite?</summary>
+        <div class="answer">
+          <p>
+            Yes — click any captured request to focus it, then open the <strong>Replay</strong>
+            tab. You can edit method, URL, headers, and body before sending, then click
+            <kbd>Send</kbd> to fire just that one request. The response shows up in the same
+            panel, with headers and body fully inspectable.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       POST /troubleshooting — symptom + cause + fix table.
+       ================================================================== -->
+  <section class="block" id="troubleshooting">
+    <div class="section-eyebrow">
+      <span class="method-pill method-post">POST</span>
+      <span class="endpoint">/troubleshooting</span>
+    </div>
+    <h2>Common symptoms — and how to fix them.</h2>
+    <p class="section-lead">
+      Most issues come from one of these five causes. If yours isn't listed,
+      <a href="#contact">open a ticket</a> and we'll add it.
+    </p>
+
+    <div class="trouble-wrap">
+      <table class="trouble-table" role="table">
+        <thead>
+          <tr>
+            <th scope="col">Symptom</th>
+            <th scope="col">Likely cause</th>
+            <th scope="col">Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Symptom">Side panel won't open</td>
+            <td data-label="Likely cause">Toolbar icon not pinned</td>
+            <td data-label="Fix">Click the <strong>puzzle icon</strong> at the top-right of Chrome, then click the pin next to Auto API.</td>
+          </tr>
+          <tr>
+            <td data-label="Symptom">List stays empty after clicking Start</td>
+            <td data-label="Likely cause">Page loaded before capture started, or DevTools is open</td>
+            <td data-label="Fix">Refresh the tab after Start; close any open DevTools window on the same tab.</td>
+          </tr>
+          <tr>
+            <td data-label="Symptom">Chrome shows "Auto API started debugging this browser"</td>
+            <td data-label="Likely cause">Expected — the <code>debugger</code> permission triggers this infobar</td>
+            <td data-label="Fix">No action needed. The bar disappears when you click Stop or close the tab.</td>
+          </tr>
+          <tr>
+            <td data-label="Symptom">Run shows every step failing with 401 / 403</td>
+            <td data-label="Likely cause">Captured auth token has expired</td>
+            <td data-label="Fix">For the exported suite, update <code>.env</code> with a fresh <code>AUTH_TOKEN</code>. For in-extension Run, re-capture the login flow.</td>
+          </tr>
+          <tr>
+            <td data-label="Symptom">Run shows steps timing out</td>
+            <td data-label="Likely cause">API endpoint slow or unreachable</td>
+            <td data-label="Fix">Click <kbd>Stop</kbd> to cancel. Each step has a 30s timeout; check the failing request individually in Replay to inspect the error.</td>
+          </tr>
+          <tr>
+            <td data-label="Symptom">cURL paste shows "No URL found"</td>
+            <td data-label="Likely cause">Command was truncated mid-paste, or the URL is missing</td>
+            <td data-label="Fix">Make sure the command includes the URL (with quotes if it has special characters) and starts with <code>curl</code>.</td>
+          </tr>
+          <tr>
+            <td data-label="Symptom">Generated pytest test_*.py says "ModuleNotFoundError"</td>
+            <td data-label="Likely cause">Dependencies not installed in the export project</td>
+            <td data-label="Fix">In the extracted folder, run <code>pip install -r requirements.txt</code>, then <code>pytest -v</code>.</td>
+          </tr>
+          <tr>
+            <td data-label="Symptom">Exported Maven project won't build</td>
+            <td data-label="Likely cause">Java 17+ not available, or no Maven 3.8+ on path</td>
+            <td data-label="Fix">Install Maven and a JDK 17+. Then <code>mvn test</code> from the extracted folder.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       GET /permissions — every permission explained with its purpose.
+       ================================================================== -->
+  <section class="block" id="permissions">
+    <div class="section-eyebrow">
+      <span class="method-pill method-get">GET</span>
+      <span class="endpoint">/permissions</span>
+    </div>
+    <h2>What Auto API can and can't do.</h2>
+    <p class="section-lead">
+      Each permission in <code>manifest.json</code>, what it's actually used for, and what it
+      doesn't enable.
+    </p>
+
+    <div class="perms">
+      <div class="perm">
+        <div class="perm-name">debugger</div>
+        <div class="perm-why">
+          Attach to the active tab via the Chrome DevTools Protocol to listen for
+          <code>Network.*</code> events. Powers the primary capture rail. Triggers Chrome's
+          yellow "Auto API started debugging this browser" infobar (a built-in transparency
+          feature — not an error). Only used while capture is active.
+        </div>
+      </div>
+      <div class="perm">
+        <div class="perm-name">scripting</div>
+        <div class="perm-why">
+          Inject the page-world fetch / XHR interceptor as a fallback for cases CDP can't see
+          (service-worker dispatches, certain edge cases). The injected script only forwards
+          captured calls to the extension's background; it doesn't read DOM, cookies, or
+          storage.
+        </div>
+      </div>
+      <div class="perm">
+        <div class="perm-name">sidePanel</div>
+        <div class="perm-why">
+          Open the side-panel UI when the toolbar icon is clicked. This is the only UI surface
+          Auto API uses — no popups, no overlays, no new tabs.
+        </div>
+      </div>
+      <div class="perm">
+        <div class="perm-name">activeTab</div>
+        <div class="perm-why">
+          Reference the currently active tab for capture targeting and the page URL displayed
+          in the side panel header. Does not grant cross-tab access.
+        </div>
+      </div>
+      <div class="perm">
+        <div class="perm-name">storage</div>
+        <div class="perm-why">
+          Persist your preferences (theme, capture toggles, noise filter state) across sessions
+          via <code>chrome.storage.local</code>.
+        </div>
+      </div>
+      <div class="perm">
+        <div class="perm-name">host_permissions: &lt;all_urls&gt;</div>
+        <div class="perm-why">
+          Required so capture works on every site you'd want to test against —
+          your staging, your prod, third-party APIs. <strong>The extension itself never makes
+          outbound network requests to any host.</strong> The host permission is only used to
+          attach the debugger and inject the interceptor into the tab you've opened.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       GET /privacy — concrete, single-line statements.
+       ================================================================== -->
+  <section class="block" id="privacy">
+    <div class="section-eyebrow">
+      <span class="method-pill method-get">GET</span>
+      <span class="endpoint">/privacy</span>
+    </div>
+    <h2>Your data never leaves your browser.</h2>
+    <p class="section-lead">
+      Auto API is designed to be auditable. Five concrete statements:
+    </p>
+
+    <div class="privacy-list">
+      <div class="privacy-item">
+        <span class="privacy-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <p>
+          <strong>Captured requests are stored locally.</strong> Everything you record lives in
+          your browser's IndexedDB. Nothing is uploaded, mirrored, or backed up to any external
+          system.
+        </p>
+      </div>
+      <div class="privacy-item">
+        <span class="privacy-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <p>
+          <strong>No telemetry, no analytics, no remote logging.</strong> The extension makes
+          zero outbound network requests of its own. You can verify this in the manifest —
+          there are no <code>fetch</code> calls to any external host in the background or
+          side-panel code.
+        </p>
+      </div>
+      <div class="privacy-item">
+        <span class="privacy-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <p>
+          <strong>No account, no signup, no email required.</strong> The extension works fully
+          offline. You don't tell us anything about yourself; we have nothing to know.
+        </p>
+      </div>
+      <div class="privacy-item">
+        <span class="privacy-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <p>
+          <strong>Auth tokens are extracted, not shared.</strong> When exporting a suite, Auto
+          API extracts bearer tokens, API keys, and CSRF tokens into environment variables.
+          The captured value appears as a <em>comment</em> in <code>.env.example</code> so you
+          can see what shape to expect, never as a default. Secrets stay out of version control
+          by construction.
+        </p>
+      </div>
+      <div class="privacy-item">
+        <span class="privacy-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <p>
+          <strong>Uninstalling wipes everything.</strong> Chrome deletes the extension's
+          IndexedDB store and <code>chrome.storage</code> entries on uninstall. Nothing
+          persists on your machine.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       POST /contact — clear paths for users to reach the developer.
+       Replace the placeholder URLs/emails with your real ones.
+       ================================================================== -->
+  <section class="block" id="contact">
+    <div class="section-eyebrow">
+      <span class="method-pill method-post">POST</span>
+      <span class="endpoint">/contact</span>
+    </div>
+    <h2>Get in touch.</h2>
+    <p class="section-lead">
+      The fastest way to a fix is a reproducible bug report. The fastest way to a feature is a
+      concrete use case.
+    </p>
+
+    <div class="contact-grid">
+      <!-- Replace href with your real contact email or mailto: address -->
+      <a class="contact-card" href="mailto:sajb8722@gmail.com">
+        <svg class="arrow" viewBox="0 0 16 16"><path d="M4 8h8M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Email</h3>
+        <p>For private bug reports, sensitive findings, or anything you'd rather not put on a public tracker.</p>
+        <p class="mono" style="color: var(--accent); margin-top: 8px;">sajb8722@gmail.com</p>
+      </a>
+
+      <!-- Replace href with your real GitHub repo URL -->
+      <a class="contact-card" href="https://github.com/auto-api/auto-api/issues" rel="noopener" target="_blank">
+        <svg class="arrow" viewBox="0 0 16 16"><path d="M4 8h8M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>GitHub issues</h3>
+        <p>Open a public issue with steps to reproduce, your Chrome version, and a screenshot if possible. Browse existing reports to see if it's already known.</p>
+      </a>
+
+      <!-- Replace href with your real feature request URL (form, GitHub Discussions, etc.) -->
+      <a class="contact-card" href="https://github.com/auto-api/auto-api/discussions" rel="noopener" target="_blank">
+        <svg class="arrow" viewBox="0 0 16 16"><path d="M4 8h8M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Feature requests</h3>
+        <p>Tell us what you're trying to do — not just what you want built. Concrete use cases ship faster than generic suggestions.</p>
+      </a>
+
+      <a class="contact-card" href="https://chromewebstore.google.com/" rel="noopener" target="_blank">
+        <svg class="arrow" viewBox="0 0 16 16"><path d="M4 8h8M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Reviews & ratings</h3>
+        <p>If Auto API helps your team, leave a review on the Chrome Web Store — it's the most impactful thing a happy user can do.</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-mark">
+    <span class="brand-mark" aria-hidden="true" style="width: 20px; height: 20px; border-radius: 5px;">
+      <svg class="brand-glyph" viewBox="0 0 24 24" style="width: 14px; height: 14px; stroke-width: 2;">
+        <path d="M9 6 Q6 6 6 9 V11 Q6 12 5 12 Q6 12 6 13 V15 Q6 18 9 18" />
+        <path d="M15 6 Q18 6 18 9 V11 Q18 12 19 12 Q18 12 18 13 V15 Q18 18 15 18" />
+      </svg>
+    </span>
+    Auto API
+  </div>
+  <p>
+    Capture every API call. Generate test code. Run it in the browser.
+    <br>
+    <span style="color: var(--ink-3); font-size: 12px;">
+      A Chrome side-panel extension · v1.7.0 · This page is the official support URL.
+    </span>
+  </p>
+</footer>
+
+</body>
+</html>
